@@ -34,57 +34,34 @@
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
 
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
+    
+    //Set inital arrays
+    
+    //Apple
+        self.appleProducts = [[NSMutableArray alloc]initWithObjects:@"iPad", @"iPod Touch",@"iPhone", nil];
+        self.appleImageList = [[NSMutableArray alloc]initWithObjects:@"ipad", @"ipod-touch", @"iphone", nil];
         
-        self.products = [[NSMutableArray alloc]initWithObjects:@"iPad", @"iPod Touch",@"iPhone", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"ipad", @"ipod-touch", @"iphone", nil];
-        
-    }
-    else if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"galaxy-s4", @"galaxy-note", @"galaxy-tab", nil];
-    }
-    else if ([self.title isEqualToString:@"LG mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"V20", @"G5", @"Stylo 2", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"v20", @"g5", @"stylo-2", nil];
-    }
-    else if ([self.title isEqualToString:@"Google mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"Pixel", @"Nexus", @"Pixel C", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"pixel", @"nexus", @"pixel-c", nil];
-    }
+    //Samsung
+        self.samsungProducts = [[NSMutableArray alloc]initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
+        self.samsungImageList = [[NSMutableArray alloc]initWithObjects:@"galaxy-s4", @"galaxy-note", @"galaxy-tab", nil];
+    
+    //LG
+        self.lgProducts = [[NSMutableArray alloc]initWithObjects:@"V20", @"G5", @"Stylo 2", nil];
+        self.lgImageList = [[NSMutableArray alloc]initWithObjects:@"v20", @"g5", @"stylo-2", nil];
+    
+    //Google
+        self.googleProducts = [[NSMutableArray alloc]initWithObjects:@"Pixel", @"Nexus", @"Pixel C", nil];
+        self.googleImageList = [[NSMutableArray alloc]initWithObjects:@"pixel", @"nexus", @"pixel-c", nil];
+    
 
-    
-    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
     
     [super viewWillAppear:animated];
     
-    if ([self.title isEqualToString:@"Apple mobile devices"]) {
-        
-        self.productsPersist = self.products;
-        self.imageListPersist = self.imageList;
-     }
-    else if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"galaxy-s4", @"galaxy-note", @"galaxy-tab", nil];
-    }
-    else if ([self.title isEqualToString:@"LG mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"V20", @"G5", @"Stylo 2", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"v20", @"g5", @"stylo-2", nil];
-    }
-    else if ([self.title isEqualToString:@"Google mobile devices"]) {
-        
-        self.products = [[NSMutableArray alloc]initWithObjects:@"Pixel", @"Nexus", @"Pixel C", nil];
-        self.imageList = [[NSMutableArray alloc]initWithObjects:@"pixel", @"nexus", @"pixel-c", nil];
-    }
-
+        self.productsPersist = self.appleProducts;
+        self.imageListPersist = self.appleImageList;
     
     [self.tableView reloadData];
 }
@@ -108,7 +85,7 @@
 {
 //#warning Incomplete method implementation.
     // Return the number of rows in the section.
-    return [self.products count];
+    return [self.productsPersist count];
 }
 
 - (UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath
@@ -119,9 +96,9 @@
         cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
     }
     // Configure the cell...
-    cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+    cell.textLabel.text = [self.productsPersist objectAtIndex:[indexPath row]];
     
-    cell.imageView.image = [UIImage imageNamed:[self.imageList objectAtIndex:[indexPath row]]];
+    cell.imageView.image = [UIImage imageNamed:[self.imageListPersist objectAtIndex:[indexPath row]]];
     
     return cell;
 }
@@ -143,8 +120,27 @@
         
         
         //remove from array
-        [self.products removeObjectAtIndex:indexPath.row];
-        [self.imageList removeObjectAtIndex:indexPath.row];
+        //[self.productsPersist removeObjectAtIndex:indexPath.row];
+        //[self.imageListPersist removeObjectAtIndex:indexPath.row];
+        
+        if ([self.title isEqualToString:@"Apple mobile devices"]){
+            [self.appleProducts removeObjectAtIndex:indexPath.row];
+            [self.appleImageList removeObjectAtIndex:indexPath.row];
+        }
+        else if ([self.title isEqualToString:@"Samsung mobile devices"]){
+            [self.samsungProducts removeObjectAtIndex:indexPath.row];
+            [self.samsungImageList removeObjectAtIndex:indexPath.row];
+        }
+        else if ([self.title isEqualToString:@"LG mobile devices"]){
+            [self.lgProducts removeObjectAtIndex:indexPath.row];
+            [self.lgImageList removeObjectAtIndex:indexPath.row];
+        }
+        else if ([self.title isEqualToString:@"Google mobile devices"]){
+            [self.googleProducts removeObjectAtIndex:indexPath.row];
+            [self.googleImageList removeObjectAtIndex:indexPath.row];
+        }
+
+        
         
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
