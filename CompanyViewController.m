@@ -28,7 +28,7 @@
 - (void)viewDidLoad
 {
     [super viewDidLoad];
-
+    NSLog(@"VIEW LOADED");
     // Uncomment the following line to preserve selection between presentations.
      self.clearsSelectionOnViewWillAppear = NO;
  
@@ -36,7 +36,7 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices"];
+    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices"];
     self.title = @"Mobile device makers";
     
     
@@ -128,9 +128,17 @@
 
     if (indexPath.row == 0){
         self.productViewController.title = @"Apple mobile devices";
-    } else {
+    }
+    else if(indexPath.row == 1) {
         self.productViewController.title = @"Samsung mobile devices";
     }
+    else if(indexPath.row == 2) {
+        self.productViewController.title = @"LG mobile devices";
+    }
+    else if(indexPath.row == 3) {
+        self.productViewController.title = @"Google mobile devices";
+    }
+
     
     [self.navigationController
         pushViewController:self.productViewController
