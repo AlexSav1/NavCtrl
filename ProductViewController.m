@@ -7,6 +7,7 @@
 //
 
 #import "ProductViewController.h"
+#import "WebViewController.h"
 
 @interface ProductViewController ()
 
@@ -32,6 +33,31 @@
  
     // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
+
+    if ([self.title isEqualToString:@"Apple mobile devices"]) {
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"iPad", @"iPod Touch",@"iPhone", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"ipad", @"ipod-touch", @"iphone", nil];
+        
+    }
+    else if ([self.title isEqualToString:@"Samsung mobile devices"]) {
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"galaxy-s4", @"galaxy-note", @"galaxy-tab", nil];
+    }
+    else if ([self.title isEqualToString:@"LG mobile devices"]) {
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"V20", @"G5", @"Stylo 2", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"v20", @"g5", @"stylo-2", nil];
+    }
+    else if ([self.title isEqualToString:@"Google mobile devices"]) {
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"Pixel", @"Nexus", @"Pixel C", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"pixel", @"nexus", @"pixel-c", nil];
+    }
+
+    
+    
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -39,17 +65,26 @@
     [super viewWillAppear:animated];
     
     if ([self.title isEqualToString:@"Apple mobile devices"]) {
-        self.products = @[@"iPad", @"iPod Touch",@"iPhone"];
-    }
+        
+        self.productsPersist = self.products;
+        self.imageListPersist = self.imageList;
+     }
     else if ([self.title isEqualToString:@"Samsung mobile devices"]) {
-        self.products = @[@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab"];
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"Galaxy S4", @"Galaxy Note", @"Galaxy Tab", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"galaxy-s4", @"galaxy-note", @"galaxy-tab", nil];
     }
     else if ([self.title isEqualToString:@"LG mobile devices"]) {
-        self.products = @[@"V20", @"G5", @"Stylo 2"];
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"V20", @"G5", @"Stylo 2", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"v20", @"g5", @"stylo-2", nil];
     }
     else if ([self.title isEqualToString:@"Google mobile devices"]) {
-        self.products = @[@"Pixel", @"Nexus", @"Pixel C"];
+        
+        self.products = [[NSMutableArray alloc]initWithObjects:@"Pixel", @"Nexus", @"Pixel C", nil];
+        self.imageList = [[NSMutableArray alloc]initWithObjects:@"pixel", @"nexus", @"pixel-c", nil];
     }
+
     
     [self.tableView reloadData];
 }
@@ -64,14 +99,14 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
+//#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.products count];
 }
@@ -85,6 +120,9 @@
     }
     // Configure the cell...
     cell.textLabel.text = [self.products objectAtIndex:[indexPath row]];
+    
+    cell.imageView.image = [UIImage imageNamed:[self.imageList objectAtIndex:[indexPath row]]];
+    
     return cell;
 }
 
@@ -97,19 +135,30 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        
+        //remove from array
+        [self.products removeObjectAtIndex:indexPath.row];
+        [self.imageList removeObjectAtIndex:indexPath.row];
+        
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
-    }   
+        
+        
+        // Request table view to reload
+        [tableView reloadData];
+    }
+
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -127,7 +176,7 @@
 }
 */
 
-/*
+
 #pragma mark - Table view delegate
 
 // In a xib-based application, navigation from a table can be handled in -tableView:didSelectRowAtIndexPath:
@@ -135,14 +184,67 @@
 {
     // Navigation logic may go here, for example:
     // Create the next view controller.
-    <#DetailViewController#> *detailViewController = [[<#DetailViewController#> alloc] initWithNibName:@"<#Nib name#>" bundle:nil];
-
-    // Pass the selected object to the new view controller.
     
+    UITableViewCell *currCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    //NSLog(@"Cell lable title: %@", currCell.textLabel.text);
+
+    
+    self.webViewController = [[WebViewController alloc] init];
+    
+    
+    // Pass the selected object to the new view controller.
+    //Apple
+        if ([currCell.textLabel.text  isEqual: @"iPad"]){
+            self.webViewController.urlString = @"http://www.apple.com/ipad/";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"iPod Touch"]){
+            self.webViewController.urlString = @"http://www.apple.com/ipod-touch/";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"iPhone"]){
+            self.webViewController.urlString = @"http://www.apple.com/iphone/";
+        }
+    //Samsung
+        else if ([currCell.textLabel.text  isEqual: @"Galaxy S4"]){
+            self.webViewController.urlString = @"http://www.samsung.com/us/mobile/phones/galaxy-s/samsung-galaxy-s4-verizon-white-frost-16gb-sch-i545zwavzw/";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"Galaxy Note"]){
+            self.webViewController.urlString = @"http://www.samsung.com/us/mobile/phones/galaxy-note/s/_/n-10+11+hv1rp+zq1xb";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"Galaxy Tab"]){
+            self.webViewController.urlString = @"https://www.amazon.com/Samsung-Galaxy-Tablet-Black-SM-T580NZKAXAR/dp/B01EUC7NPI";
+        }
+    //LG
+        else if ([currCell.textLabel.text  isEqual: @"V20"]){
+            self.webViewController.urlString = @"http://www.lg.com/us/mobile-phones/v20";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"G5"]){
+            self.webViewController.urlString = @"http://www.lg.com/us/mobile-phones/g5#G5Modularity";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"Stylo 2"]){
+            self.webViewController.urlString = @"http://www.gsmarena.com/lg_stylo_2-8085.php";
+        }
+    //Google
+        else if ([currCell.textLabel.text  isEqual: @"Pixel"]){
+            self.webViewController.urlString = @"https://madeby.google.com/phone/";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"Nexus"]){
+            self.webViewController.urlString = @"https://www.google.com/nexus/";
+        }
+        else if ([currCell.textLabel.text  isEqual: @"Pixel C"]){
+            self.webViewController.urlString = @"https://store.google.com/product/pixel_c";
+        }
+    
+
+
     // Push the view controller.
-    [self.navigationController pushViewController:detailViewController animated:YES];
+    [self.navigationController pushViewController:self.webViewController animated:YES];
 }
  
- */
 
+
+- (void)dealloc {
+    [_webViewController release];
+    [super dealloc];
+}
 @end

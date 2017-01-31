@@ -36,8 +36,17 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices"];
+//    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices"];
+    
+    self.companyList = [[NSMutableArray alloc]initWithObjects:@"Apple mobile devices", @"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices", nil];
+    
+    
     self.title = @"Mobile device makers";
+    
+    self.imageList = [[NSMutableArray alloc]initWithObjects:@"Apple-Logo", @"samsung-logo.jpg", @"LG-Logo", @"Google-Logo", nil];
+    
+    
+    //self.imageList = @[@"Apple-Logo", @"samsung-logo.jpg", @"LG-Logo", @"Google-Logo"];
     
     
 }
@@ -52,14 +61,13 @@
 
 - (NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
-#warning Potentially incomplete method implementation.
     // Return the number of sections.
     return 1;
 }
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
-#warning Incomplete method implementation.
+//#warning Incomplete method implementation.
     // Return the number of rows in the section.
     return [self.companyList count];
 }
@@ -76,6 +84,10 @@
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
+    cell.imageView.image = [UIImage imageNamed:[self.imageList objectAtIndex:[indexPath row]]];
+
+    cell.imageView.contentMode = UIViewContentModeScaleToFill;
+    
     return cell;
 }
 
@@ -88,19 +100,29 @@
 }
 */
 
-/*
+
 // Override to support editing the table view.
 - (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
 {
     if (editingStyle == UITableViewCellEditingStyleDelete) {
+        
+        
+        //remove from array
+       [self.companyList removeObjectAtIndex:indexPath.row];
+       [self.imageList removeObjectAtIndex:indexPath.row];
+        
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        
+        
+        // Request table view to reload
+        [tableView reloadData];
     }   
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
     }   
 }
-*/
+
 
 /*
 // Override to support rearranging the table view.
@@ -125,17 +147,22 @@
 - (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
 
+    UITableViewCell *currCell = [self.tableView cellForRowAtIndexPath:indexPath];
+    
+    //NSLog(@"Cell lable title: %@", currCell.textLabel.text);
 
-    if (indexPath.row == 0){
+    
+
+    if ([currCell.textLabel.text  isEqual: @"Apple mobile devices"]){
         self.productViewController.title = @"Apple mobile devices";
     }
-    else if(indexPath.row == 1) {
+    else if([currCell.textLabel.text  isEqual: @"Samsung mobile devices"]) {
         self.productViewController.title = @"Samsung mobile devices";
     }
-    else if(indexPath.row == 2) {
+    else if([currCell.textLabel.text  isEqual: @"LG mobile devices"]) {
         self.productViewController.title = @"LG mobile devices";
     }
-    else if(indexPath.row == 3) {
+    else if([currCell.textLabel.text  isEqual: @"Google mobile devices"]) {
         self.productViewController.title = @"Google mobile devices";
     }
 
