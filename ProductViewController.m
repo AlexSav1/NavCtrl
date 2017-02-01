@@ -60,8 +60,22 @@
     
     [super viewWillAppear:animated];
     
+    if ([self.title isEqualToString:@"Apple mobile devices"]){
         self.productsPersist = self.appleProducts;
         self.imageListPersist = self.appleImageList;
+    }
+    else if ([self.title isEqualToString:@"Samsung mobile devices"]){
+        self.productsPersist = self.samsungProducts;
+        self.imageListPersist = self.samsungImageList;
+    }
+    else if ([self.title isEqualToString:@"LG mobile devices"]){
+        self.productsPersist = self.lgProducts;
+        self.imageListPersist = self.lgImageList;
+    }
+    else if ([self.title isEqualToString:@"Google mobile devices"]){
+        self.productsPersist = self.googleProducts;
+        self.imageListPersist = self.googleImageList;
+    }
     
     [self.tableView reloadData];
 }
@@ -156,21 +170,38 @@
 }
 
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    
+    
+    //UITableViewCell *currCell = [self.tableView cellForRowAtIndexPath:fromIndexPath];
+    
+//    if ([self.title isEqualToString:@"Apple mobile devices"]){
+//        
+//    }
+    
+    NSString *stringToMove = self.productsPersist[fromIndexPath.row];
+    NSString *imageToMove = self.imageListPersist[fromIndexPath.row];
+    
+    
+    [self.productsPersist removeObjectAtIndex:fromIndexPath.row];
+    [self.productsPersist insertObject:stringToMove atIndex:toIndexPath.row];
+    
+    [self.imageListPersist removeObjectAtIndex:fromIndexPath.row];
+    [self.imageListPersist insertObject:imageToMove atIndex:toIndexPath.row];
+    
+}
+
+
+
 // Override to support conditional rearranging of the table view.
 - (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
 {
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 
 #pragma mark - Table view delegate

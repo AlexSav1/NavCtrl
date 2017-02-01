@@ -36,17 +36,12 @@
     self.navigationItem.rightBarButtonItem = self.editButtonItem;
     
     
-//    self.companyList = @[@"Apple mobile devices",@"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices"];
-    
     self.companyList = [[NSMutableArray alloc]initWithObjects:@"Apple mobile devices", @"Samsung mobile devices", @"LG mobile devices", @"Google mobile devices", nil];
     
     
     self.title = @"Mobile device makers";
     
     self.imageList = [[NSMutableArray alloc]initWithObjects:@"Apple-Logo", @"samsung-logo.jpg", @"LG-Logo", @"Google-Logo", nil];
-    
-    
-    //self.imageList = @[@"Apple-Logo", @"samsung-logo.jpg", @"LG-Logo", @"Google-Logo"];
     
     
 }
@@ -84,8 +79,23 @@
     
     cell.textLabel.text = [self.companyList objectAtIndex:[indexPath row]];
     
-    cell.imageView.image = [UIImage imageNamed:[self.imageList objectAtIndex:[indexPath row]]];
+    
+    if ([cell.textLabel.text isEqualToString:@"Apple mobile devices"]){
+        cell.imageView.image = [UIImage imageNamed:@"Apple-Logo"];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"Samsung mobile devices"]){
+        cell.imageView.image = [UIImage imageNamed:@"samsung-logo.jpg"];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"LG mobile devices"]){
+        cell.imageView.image = [UIImage imageNamed:@"LG-Logo"];
+    }
+    else if ([cell.textLabel.text isEqualToString:@"Google mobile devices"]){
+        cell.imageView.image = [UIImage imageNamed:@"Google-Logo"];
+    }
 
+
+    
+    
     cell.imageView.contentMode = UIViewContentModeScaleToFill;
     
     return cell;
@@ -124,21 +134,31 @@
 }
 
 
-/*
-// Override to support rearranging the table view.
-- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath
-{
-}
-*/
 
-/*
+// Override to support rearranging the table view.
+- (void)tableView:(UITableView *)tableView moveRowAtIndexPath:(NSIndexPath *)fromIndexPath toIndexPath:(NSIndexPath *)toIndexPath{
+    
+    NSString *stringToMove = self.companyList[fromIndexPath.row];
+    NSString *imageToMove = self.companyList[fromIndexPath.row];
+    
+    [self.companyList removeObjectAtIndex:fromIndexPath.row];
+    [self.companyList insertObject:stringToMove atIndex:toIndexPath.row];
+    
+    [self.imageList removeObjectAtIndex:fromIndexPath.row];
+    [self.imageList insertObject:imageToMove atIndex:toIndexPath.row];
+
+    
+}
+
+
+
 // Override to support conditional rearranging of the table view.
-- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath
-{
+- (BOOL)tableView:(UITableView *)tableView canMoveRowAtIndexPath:(NSIndexPath *)indexPath{
+    
     // Return NO if you do not want the item to be re-orderable.
     return YES;
 }
-*/
+
 
 
 #pragma mark - Table view delegate
