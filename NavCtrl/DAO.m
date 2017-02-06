@@ -12,6 +12,7 @@
 
 @implementation DAO
 
+//ensures there could only be one DAO object
 + (id)sharedDataManager {
     static DAO *sharedMyManager = nil;
     static dispatch_once_t onceToken;
@@ -66,5 +67,16 @@
     }
     return self;
 }
+
+
+-(void) addCompanyName: (NSString*) companyName
+              andImage: (NSString*) imgName{
+    
+    Company *newCompany = [[Company alloc] initWithName:companyName andImage:imgName];
+    
+    [self.companies addObject:newCompany];
+    
+}
+
 
 @end

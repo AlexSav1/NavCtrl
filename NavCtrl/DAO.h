@@ -15,4 +15,7 @@
 
 + (id)sharedDataManager;
 
+-(void) addCompanyName: (NSString*) companyName
+              andImage: (NSString*) imgName;
+
 @end

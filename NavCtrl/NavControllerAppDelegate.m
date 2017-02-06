@@ -8,6 +8,7 @@
 
 #import "NavControllerAppDelegate.h"
 #import "CompanyViewController.h"
+#import "InitalCompanyViewController.h"
 
 @implementation NavControllerAppDelegate
 
@@ -16,15 +17,14 @@
     
     // Override point for customization after application launch.
     UIViewController *rootController =
-    [[CompanyViewController alloc]
-     initWithNibName:@"CompanyViewController" bundle:nil];
+    [[InitalCompanyViewController alloc]
+     initWithNibName:@"InitalCompanyViewController" bundle:nil];
     
     self.navigationController = [[UINavigationController alloc]
                             initWithRootViewController:rootController];
     
-    self.window = [[UIWindow alloc]
-                   initWithFrame:[[UIScreen mainScreen] bounds]];
-//  self.window addSubview:self.navigationController.view];
+    self.window = [[UIWindow alloc]initWithFrame:[[UIScreen mainScreen] bounds]];
+    [self.window addSubview:self.navigationController.view];
     [self.window setRootViewController:self.navigationController];
     [self.window makeKeyAndVisible];
     return YES;

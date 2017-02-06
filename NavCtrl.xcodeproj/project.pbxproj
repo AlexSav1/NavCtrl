@@ -23,6 +23,10 @@
 		48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 48A656E518163C1B00746D36 /* CompanyViewController.xib */; };
 		48A656EB18163F8700746D36 /* ProductViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 48A656E918163F8700746D36 /* ProductViewController.m */; };
 		48A656EE1816468000746D36 /* Sunflower.gif in Resources */ = {isa = PBXBuildFile; fileRef = 48A656ED1816468000746D36 /* Sunflower.gif */; };
+		AAAD0AB71E48F292004FA681 /* InitalCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAD0AB51E48F292004FA681 /* InitalCompanyViewController.m */; };
+		AAAD0AB81E48F292004FA681 /* InitalCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAAD0AB61E48F292004FA681 /* InitalCompanyViewController.xib */; };
+		AAAD0ABC1E48F6E3004FA681 /* AddCompanyViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AAAD0ABA1E48F6E3004FA681 /* AddCompanyViewController.m */; };
+		AAAD0ABD1E48F6E3004FA681 /* AddCompanyViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = AAAD0ABB1E48F6E3004FA681 /* AddCompanyViewController.xib */; };
 		AACE5E521E410528005F3BE5 /* samsung-logo.jpg in Resources */ = {isa = PBXBuildFile; fileRef = AACE5E511E410528005F3BE5 /* samsung-logo.jpg */; };
 		AACE5E551E41179E005F3BE5 /* WebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = AACE5E541E41179E005F3BE5 /* WebViewController.m */; };
 		AACE5E5A1E412234005F3BE5 /* WebKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACE5E591E412234005F3BE5 /* WebKit.framework */; };
@@ -64,6 +68,12 @@
 		48A656E818163F8700746D36 /* ProductViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ProductViewController.h; path = ../ProductViewController.h; sourceTree = "<group>"; };
 		48A656E918163F8700746D36 /* ProductViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ProductViewController.m; path = ../ProductViewController.m; sourceTree = "<group>"; };
 		48A656ED1816468000746D36 /* Sunflower.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = Sunflower.gif; sourceTree = "<group>"; };
+		AAAD0AB41E48F292004FA681 /* InitalCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = InitalCompanyViewController.h; sourceTree = "<group>"; };
+		AAAD0AB51E48F292004FA681 /* InitalCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = InitalCompanyViewController.m; sourceTree = "<group>"; };
+		AAAD0AB61E48F292004FA681 /* InitalCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = InitalCompanyViewController.xib; sourceTree = "<group>"; };
+		AAAD0AB91E48F6E3004FA681 /* AddCompanyViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddCompanyViewController.h; sourceTree = "<group>"; };
+		AAAD0ABA1E48F6E3004FA681 /* AddCompanyViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddCompanyViewController.m; sourceTree = "<group>"; };
+		AAAD0ABB1E48F6E3004FA681 /* AddCompanyViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = AddCompanyViewController.xib; sourceTree = "<group>"; };
 		AACE5E511E410528005F3BE5 /* samsung-logo.jpg */ = {isa = PBXFileReference; lastKnownFileType = image.jpeg; path = "samsung-logo.jpg"; sourceTree = "<group>"; };
 		AACE5E531E41179E005F3BE5 /* WebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = WebViewController.h; sourceTree = "<group>"; };
 		AACE5E541E41179E005F3BE5 /* WebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = WebViewController.m; sourceTree = "<group>"; };
@@ -115,6 +125,13 @@
 			children = (
 				48A656E318163C1B00746D36 /* CompanyViewController.h */,
 				48A656E418163C1B00746D36 /* CompanyViewController.m */,
+				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
+				AAAD0AB41E48F292004FA681 /* InitalCompanyViewController.h */,
+				AAAD0AB51E48F292004FA681 /* InitalCompanyViewController.m */,
+				AAAD0AB61E48F292004FA681 /* InitalCompanyViewController.xib */,
+				AAAD0AB91E48F6E3004FA681 /* AddCompanyViewController.h */,
+				AAAD0ABA1E48F6E3004FA681 /* AddCompanyViewController.m */,
+				AAAD0ABB1E48F6E3004FA681 /* AddCompanyViewController.xib */,
 			);
 			name = ParentViewController;
 			sourceTree = "<group>";
@@ -174,7 +191,6 @@
 				AACE5E531E41179E005F3BE5 /* WebViewController.h */,
 				AACE5E541E41179E005F3BE5 /* WebViewController.m */,
 				48A656C618163BF200746D36 /* Images.xcassets */,
-				48A656E518163C1B00746D36 /* CompanyViewController.xib */,
 				48A656BB18163BF200746D36 /* Supporting Files */,
 			);
 			path = NavCtrl;
@@ -288,8 +304,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				48A656EE1816468000746D36 /* Sunflower.gif in Resources */,
+				AAAD0ABD1E48F6E3004FA681 /* AddCompanyViewController.xib in Resources */,
 				48A656E718163C1B00746D36 /* CompanyViewController.xib in Resources */,
 				48A656BF18163BF200746D36 /* InfoPlist.strings in Resources */,
+				AAAD0AB81E48F292004FA681 /* InitalCompanyViewController.xib in Resources */,
 				AACE5E521E410528005F3BE5 /* samsung-logo.jpg in Resources */,
 				48A656C718163BF200746D36 /* Images.xcassets in Resources */,
 			);
@@ -311,6 +329,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				AAF9E6251E425A21008F7104 /* Product.m in Sources */,
+				AAAD0AB71E48F292004FA681 /* InitalCompanyViewController.m in Sources */,
+				AAAD0ABC1E48F6E3004FA681 /* AddCompanyViewController.m in Sources */,
 				48A656E618163C1B00746D36 /* CompanyViewController.m in Sources */,
 				AAF9E6221E425A05008F7104 /* Company.m in Sources */,
 				AACE5E551E41179E005F3BE5 /* WebViewController.m in Sources */,
