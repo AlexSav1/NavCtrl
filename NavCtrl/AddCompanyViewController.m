@@ -23,7 +23,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    
+    self.dao = [DAO sharedDataManager];
     
     //self.title = @"Add Company";
     
@@ -31,6 +31,14 @@
     
     self.navigationItem.rightBarButtonItem = saveButton;
 
+    
+}
+
+-(void) viewWillAppear:(BOOL)animated{
+    
+    self.companyNameTextField.text = self.selectedCompany.name;
+    self.companyStockTextField.text = self.selectedCompany.stockTicker;
+    self.companyPicTextField.text = self.selectedCompany.imageName;
     
 }
 
@@ -47,7 +55,7 @@
     
     if([self.title  isEqual: @"Edit Company"]){
         
-        [self.dao editCompany:self.selectedCompanyRow Name:self.companyNameTextField.text Ticker:self.companyStockTextField.text andImage:self.companyPicTextField.text];
+        [self.dao editCompany:self.selectedCompany Name:self.companyNameTextField.text Ticker:self.companyStockTextField.text andImage:self.companyPicTextField.text];
     }
     
     

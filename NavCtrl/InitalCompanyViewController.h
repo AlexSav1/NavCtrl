@@ -10,6 +10,8 @@
 #import "DAO.h"
 
 @class AddCompanyViewController;
+@class DAOProductViewController;
+@class addProductViewController;
 
 @interface InitalCompanyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
@@ -23,6 +25,10 @@
 
 @property (nonatomic, retain) NSMutableArray *imageList;
 
-@property (nonatomic, retain)  AddCompanyViewController * addCompanyViewController;
+@property (nonatomic, retain)  AddCompanyViewController *addCompanyViewController;
+
+@property (nonatomic, retain)  DAOProductViewController *daoProductViewController;
+
+@property (nonatomic, retain) addProductViewController *addProductVC;
 
 @end

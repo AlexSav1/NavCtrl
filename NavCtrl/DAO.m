@@ -28,7 +28,7 @@
         Company *apple = [[Company alloc] initWithName:@"Apple" Ticker:@"AAPL" andImage:@"Apple-Logo"];
         Company *samsung = [[Company alloc] initWithName:@"Samsung" Ticker:@"SSNLF" andImage:@"samsung-logo.jpg"];
         Company *lg = [[Company alloc] initWithName:@"LG" Ticker:@"LPL" andImage:@"LG-Logo"];
-        Company *google = [[Company alloc] initWithName:@"Google" Ticker:@"GOOGL" andImage:@"Google-Logo"];
+        Company *google = [[Company alloc] initWithName:@"Google" Ticker:@"GOOG" andImage:@"Google-Logo"];
         
         
         
@@ -81,16 +81,29 @@
     
 }
 
--(void) editCompany: (NSInteger) selectedCompanyRow
+-(void) editCompany: (Company*) selectedCompany
                Name: (NSString*) companyName
              Ticker: (NSString*) stockName
            andImage: (NSString*) imgName{
     
-   Company *selectedCompany = [self.companies objectAtIndex:(long)selectedCompanyRow];
+   //Company *selectedCompany = [self.companies objectAtIndex:(long)selectedCompanyRow];
     
     selectedCompany.name = companyName;
     selectedCompany.stockTicker = stockName;
     selectedCompany.imageName = imgName;
+    
+}
+
+
+
+-(void) addProductForCompany: (Company*) currentCompany
+                        Name: (NSString*) productName
+                         URL: (NSString*) URLName
+                    andImage: (NSString*) imgName{
+
+    Product *newProduct = [[Product alloc] initWithName:productName Image:imgName andURL:URLName];
+    
+    [currentCompany.products addObject:newProduct];
     
 }
 

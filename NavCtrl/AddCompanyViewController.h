@@ -8,6 +8,7 @@
 
 #import <UIKit/UIKit.h>
 #import "DAO.h"
+#import "Company.h"
 
 //@class InitalCompanyViewController;
 
@@ -15,7 +16,7 @@
 
 @property (nonatomic, retain) DAO *dao;
 
-@property NSInteger selectedCompanyRow;
+@property (nonatomic, retain) Company *selectedCompany;
 
 @property (retain, nonatomic) IBOutlet UITextField *companyNameTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyStockTextField;

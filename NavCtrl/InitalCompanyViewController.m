@@ -8,6 +8,8 @@
 
 #import "InitalCompanyViewController.h"
 #import "AddCompanyViewController.h"
+#import "DAOProductViewController.h"
+#import "addProductViewController.h"
 #import "Company.h"
 #import "Product.h"
 #import "DAO.h"
@@ -23,11 +25,23 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
-    self.addCompanyViewController = [[AddCompanyViewController alloc]initWithNibName:@"AddCompanyViewController" bundle:nil];
+    self.addCompanyViewController = [[AddCompanyViewController alloc] initWithNibName:@"AddCompanyViewController" bundle:nil];
+    
+    [self.addCompanyViewController view];
+    
+    self.daoProductViewController = [[DAOProductViewController alloc] initWithNibName:@"DAOProductViewController" bundle:nil];
+
     
     self.title = @"Companies";
     
     self.dao = [DAO sharedDataManager];
+    
+//    self.addCompanyViewController.dao = self.dao;
+//
+//    self.daoProductViewController.dao = self.dao;
+//    
+//    self.addProductVC.dao = self.dao;
+    
     
     if(self.dao.companies.count == 0){
         self.tableView.hidden = YES;
@@ -101,7 +115,6 @@
     
     //self.productViewController.title = selectedCompany.name;
     //self.productViewController.currentCompany = selectedCompany;
-    self.addCompanyViewController.dao = self.dao;
     
 }
 
@@ -220,16 +233,26 @@
     if([self.tableView isEditing]){
         
         self.addCompanyViewController.title = @"Edit Company";
-        self.addCompanyViewController.selectedCompanyRow = indexPath.row;
+        self.addCompanyViewController.selectedCompany = selectedCompany;
         
-        self.addCompanyViewController.companyNameTextField.text = selectedCompany.name;
-        self.addCompanyViewController.companyStockTextField.text = selectedCompany.stockTicker;
-        self.addCompanyViewController.companyPicTextField.text = selectedCompany.imageName;
+//        self.addCompanyViewController.companyNameTextField.text = selectedCompany.name;
+//        self.addCompanyViewController.companyStockTextField.text = selectedCompany.stockTicker;
+//        self.addCompanyViewController.companyPicTextField.text = selectedCompany.imageName;
         
         [self.navigationController
          pushViewController:self.addCompanyViewController
          animated:YES];
 
+    } else{
+        
+        self.daoProductViewController.title = selectedCompany.name;
+        
+        self.daoProductViewController.currentCompany = selectedCompany;
+        
+        [self.navigationController
+         pushViewController:self.daoProductViewController
+         animated:YES];
+    
     }
     
 //    Company *selectedCompany = [self.dao.companies objectAtIndex:indexPath.row];

@@ -19,10 +19,16 @@
                 Ticker: (NSString*) stockName
               andImage: (NSString*) imgName;
 
--(void) editCompany: (NSInteger) selectedCompanyRow
+-(void) editCompany: (Company*) selectedCompany
                Name: (NSString*) companyName
              Ticker: (NSString*) stockName
            andImage: (NSString*) imgName;
+
+
+-(void) addProductForCompany: (Company*) currentCompany
+                        Name: (NSString*) productName
+                         URL: (NSString*) URLName
+                    andImage: (NSString*) imgName;
 
 
 @end
