@@ -12,11 +12,13 @@
 @implementation Company
 
 -(instancetype) initWithName: (NSString*) companyName
-            andImage: (NSString*) imgName{
+                      Ticker: (NSString*) stockName
+                    andImage: (NSString*) imgName{
     
     self = [super init];
     if (self) {
         self.name = companyName;
+        self.stockTicker = stockName;
         self.imageName = imgName;
     }
     return self;

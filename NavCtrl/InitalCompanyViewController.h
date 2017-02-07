@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DAO.h"
 
+@class AddCompanyViewController;
 
 @interface InitalCompanyViewController : UIViewController <UITableViewDelegate, UITableViewDataSource>
 
@@ -22,6 +23,6 @@
 
 @property (nonatomic, retain) NSMutableArray *imageList;
 
-//@property (nonatomic, retain)  AddCompanyViewController * addCompanyViewController;
+@property (nonatomic, retain)  AddCompanyViewController * addCompanyViewController;
 
 @end

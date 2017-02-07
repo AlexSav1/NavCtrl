@@ -12,11 +12,14 @@
 
 @property (strong, nonatomic) NSString *name;
 
+@property (strong, nonatomic) NSString *stockTicker;
+
 @property (strong, nonatomic) NSString *imageName;
 
 @property (strong, nonatomic) NSMutableArray *products;
 
 -(instancetype) initWithName: (NSString*) companyName
+                      Ticker: (NSString*) stockName
                     andImage: (NSString*) imgName;
 
 @end

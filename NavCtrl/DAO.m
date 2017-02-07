@@ -25,12 +25,12 @@
 - (id)init {
     if (self = [super init]) {
         
-        Company *apple = [[Company alloc] initWithName:@"Apple" andImage:@"Apple-Logo"];
-        Company *samsung = [[Company alloc] initWithName:@"Samsung" andImage:@"samsung-logo.jpg"];
-        Company *lg = [[Company alloc] initWithName:@"LG" andImage:@"LG-Logo"];
-        Company *google = [[Company alloc] initWithName:@"Google" andImage:@"Google-Logo"];
+        Company *apple = [[Company alloc] initWithName:@"Apple" Ticker:@"AAPL" andImage:@"Apple-Logo"];
+        Company *samsung = [[Company alloc] initWithName:@"Samsung" Ticker:@"SSNLF" andImage:@"samsung-logo.jpg"];
+        Company *lg = [[Company alloc] initWithName:@"LG" Ticker:@"LPL" andImage:@"LG-Logo"];
+        Company *google = [[Company alloc] initWithName:@"Google" Ticker:@"GOOGL" andImage:@"Google-Logo"];
         
-        self.companies = [[NSMutableArray alloc]initWithObjects:apple, samsung, lg, google,nil];
+        
         
         //apple products
         Product *ipad = [[Product alloc] initWithName:@"iPad" Image:@"ipad" andURL:@"http://www.apple.com/ipad/"];
@@ -63,6 +63,8 @@
         lg.products = [[NSMutableArray alloc]initWithObjects:v20, g5, stylo2, nil];
         google.products = [[NSMutableArray alloc]initWithObjects:pixel, nexus, pixelC, nil];
         
+        self.companies = [[NSMutableArray alloc]initWithObjects:apple, samsung, lg, google,nil];
+        
        
     }
     return self;
@@ -70,13 +72,26 @@
 
 
 -(void) addCompanyName: (NSString*) companyName
+                Ticker: (NSString*) stockName
               andImage: (NSString*) imgName{
     
-    Company *newCompany = [[Company alloc] initWithName:companyName andImage:imgName];
+    Company *newCompany = [[Company alloc] initWithName:companyName Ticker:stockName andImage:imgName];
     
     [self.companies addObject:newCompany];
     
 }
 
+-(void) editCompany: (NSInteger) selectedCompanyRow
+               Name: (NSString*) companyName
+             Ticker: (NSString*) stockName
+           andImage: (NSString*) imgName{
+    
+   Company *selectedCompany = [self.companies objectAtIndex:(long)selectedCompanyRow];
+    
+    selectedCompany.name = companyName;
+    selectedCompany.stockTicker = stockName;
+    selectedCompany.imageName = imgName;
+    
+}
 
 @end

@@ -25,7 +25,7 @@
     
     
     
-    self.title = @"Add Company";
+    //self.title = @"Add Company";
     
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed)];
     
@@ -41,8 +41,14 @@
 
 -(void) savePressed{
     
+    if([self.title  isEqual: @"Add Company"]){
+        [self.dao addCompanyName:self.companyNameTextField.text Ticker:self.companyStockTextField.text andImage:self.companyPicTextField.text];
+    }
     
-    [self.dao addCompanyName:self.companyNameTextField.text andImage:self.companyPicTextField.text];
+    if([self.title  isEqual: @"Edit Company"]){
+        
+        [self.dao editCompany:self.selectedCompanyRow Name:self.companyNameTextField.text Ticker:self.companyStockTextField.text andImage:self.companyPicTextField.text];
+    }
     
     
     

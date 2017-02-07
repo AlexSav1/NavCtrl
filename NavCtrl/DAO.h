@@ -16,6 +16,13 @@
 + (id)sharedDataManager;
 
 -(void) addCompanyName: (NSString*) companyName
+                Ticker: (NSString*) stockName
               andImage: (NSString*) imgName;
+
+-(void) editCompany: (NSInteger) selectedCompanyRow
+               Name: (NSString*) companyName
+             Ticker: (NSString*) stockName
+           andImage: (NSString*) imgName;
+
 
 @end

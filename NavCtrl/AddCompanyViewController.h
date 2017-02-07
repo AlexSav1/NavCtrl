@@ -15,6 +15,8 @@
 
 @property (nonatomic, retain) DAO *dao;
 
+@property NSInteger selectedCompanyRow;
+
 @property (retain, nonatomic) IBOutlet UITextField *companyNameTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyStockTextField;
 @property (retain, nonatomic) IBOutlet UITextField *companyPicTextField;

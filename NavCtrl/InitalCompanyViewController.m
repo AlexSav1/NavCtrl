@@ -22,8 +22,8 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
-    //sup
     
+    self.addCompanyViewController = [[AddCompanyViewController alloc]initWithNibName:@"AddCompanyViewController" bundle:nil];
     
     self.title = @"Companies";
     
@@ -32,8 +32,7 @@
     if(self.dao.companies.count == 0){
         self.tableView.hidden = YES;
         self.noCompaniesView.hidden = NO;
-    }
-    else{
+    } else{
         self.tableView.hidden = NO;
         self.noCompaniesView.hidden = YES;
     }
@@ -43,13 +42,22 @@
     self.navigationItem.rightBarButtonItem = addButton;
     
 //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
-    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit target:self action:@selector(editPressed)];
 
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editPressed)];
+    
     self.navigationItem.leftBarButtonItem = editButton;
+    
+    self.tableView.allowsSelectionDuringEditing = YES;
 }
 
 - (void)editPressed {
-    [self.tableView setEditing:YES animated:YES];
+    if(![self.tableView isEditing]){
+        [self.tableView setEditing:YES animated:YES];
+        self.navigationItem.leftBarButtonItem.title = @"Done";
+    } else {
+        [self.tableView setEditing:NO animated:YES];
+        self.navigationItem.leftBarButtonItem.title = @"Edit";
+    }
 }
 
 - (void)viewWillAppear:(BOOL)animated {
@@ -77,22 +85,23 @@
 
 -(void) addCompanyPressed{
     
-    AddCompanyViewController *addCompanyViewController =
-    [[AddCompanyViewController alloc]
-     initWithNibName:@"AddCompanyViewController" bundle:nil];
+//    AddCompanyViewController *addCompanyViewController =
+//    [[AddCompanyViewController alloc]
+//     initWithNibName:@"AddCompanyViewController" bundle:nil];
 //
 //    [self presentViewController:addCompanyViewController animated:YES completion:nil];
     
     [self.navigationController
-     pushViewController:addCompanyViewController
+     pushViewController:self.addCompanyViewController
      animated:YES];
 
+    self.addCompanyViewController.title = @"Add Company";
     
     //Company *selectedCompany = [self.dao.companies objectAtIndex:indexPath.row];
     
     //self.productViewController.title = selectedCompany.name;
     //self.productViewController.currentCompany = selectedCompany;
-    addCompanyViewController.dao = self.dao;
+    self.addCompanyViewController.dao = self.dao;
     
 }
 
@@ -129,14 +138,15 @@
     return cell;
 }
 
-/*
+
  // Override to support conditional editing of the table view.
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
+     NSLog(@"%li",(long)indexPath.row);
  return YES;
  }
- */
+
 
 
 // Override to support editing the table view.
@@ -153,12 +163,25 @@
         // Delete the row from the data source
         [tableView deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
         
+        if(self.dao.companies.count == 0){
+            self.tableView.hidden = YES;
+            self.noCompaniesView.hidden = NO;
+            [self.tableView setEditing:NO animated:YES];
+            self.navigationItem.leftBarButtonItem.title = @"Edit";
+        }
+        else{
+            self.tableView.hidden = NO;
+            self.noCompaniesView.hidden = YES;
+        }
+
         
         // Request table view to reload
         [tableView reloadData];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
         // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
+        
+        NSLog(@"%li",(long)indexPath.row);
     }
 }
 
@@ -185,6 +208,42 @@
     return YES;
 }
 
+- (void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
+{
+    
+//    AddCompanyViewController *addCompanyViewController =
+//    [[AddCompanyViewController alloc]
+//     initWithNibName:@"AddCompanyViewController" bundle:nil];
+
+    Company *selectedCompany = [self.dao.companies objectAtIndex:indexPath.row];
+    
+    if([self.tableView isEditing]){
+        
+        self.addCompanyViewController.title = @"Edit Company";
+        self.addCompanyViewController.selectedCompanyRow = indexPath.row;
+        
+        self.addCompanyViewController.companyNameTextField.text = selectedCompany.name;
+        self.addCompanyViewController.companyStockTextField.text = selectedCompany.stockTicker;
+        self.addCompanyViewController.companyPicTextField.text = selectedCompany.imageName;
+        
+        [self.navigationController
+         pushViewController:self.addCompanyViewController
+         animated:YES];
+
+    }
+    
+//    Company *selectedCompany = [self.dao.companies objectAtIndex:indexPath.row];
+//    
+//    self.productViewController.title = selectedCompany.name;
+//    self.productViewController.currentCompany = selectedCompany;
+//    
+//    
+//    [self.navigationController
+//     pushViewController:self.productViewController
+//     animated:YES];
+    
+    
+}
 
 
 /*
