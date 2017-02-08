@@ -8,9 +8,16 @@
 
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
+#import "Product.h"
+
+@class addProductViewController;
 
 @interface WebViewController : UIViewController<WKNavigationDelegate>
 
 @property (strong, nonatomic) NSString *urlString;
+
+@property (nonatomic, retain) addProductViewController *addProductVC;
+
+@property (nonatomic, retain) Product *selectedProduct;
 
 @end

@@ -29,6 +29,21 @@
     self.navigationItem.rightBarButtonItem = saveButton;
 }
 
+-(void) viewWillAppear:(BOOL)animated{
+    
+    if([self.title  isEqual: @"Edit Product"]){
+        self.productNameTextField.text = self.selectedProduct.name;
+        self.productURLTextField.text = self.selectedProduct.url;
+        self.productImageURLTextField.text = self.selectedProduct.imageName;
+    } else{
+        self.productNameTextField.text = @"";
+        self.productURLTextField.text = @"";
+        self.productImageURLTextField.text = @"";
+    }
+
+    
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -41,7 +56,7 @@
     }
     
     if([self.title  isEqual: @"Edit Product"]){
-        
+        [self.dao editProduct:self.selectedProduct Name:self.productNameTextField.text URL:self.productURLTextField.text andImage:self.productImageURLTextField.text];
     }
     
     

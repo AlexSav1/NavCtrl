@@ -107,4 +107,15 @@
     
 }
 
+-(void) editProduct: (Product*) currentProduct
+               Name: (NSString*) productName
+                URL: (NSString*) URLName
+           andImage: (NSString*) imgName{
+    
+    currentProduct.name = productName;
+    currentProduct.url = URLName;
+    currentProduct.imageName = imgName;
+    
+}
+
 @end

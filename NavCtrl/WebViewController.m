@@ -7,6 +7,7 @@
 //
 
 #import "WebViewController.h"
+#import "addProductViewController.h"
 
 
 @interface WebViewController ()
@@ -35,11 +36,30 @@
     [self.view addSubview:webView];
     
     
+    UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editPressed)];
+    
+    self.navigationItem.rightBarButtonItem = editButton;
+    
+    
+    self.addProductVC = [[addProductViewController alloc] initWithNibName:@"addProductViewController" bundle:nil];
+    
 }
 
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
+}
+
+-(void) editPressed{
+    
+    self.addProductVC.title = @"Edit Product";
+    
+    self.addProductVC.selectedProduct = self.selectedProduct;
+    
+    [self.navigationController
+     pushViewController:self.addProductVC
+     animated:YES];
+    
 }
 
 /*

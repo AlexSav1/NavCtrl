@@ -8,6 +8,7 @@
 
 #import "Company.h"
 #import <Foundation/Foundation.h>
+#import "Product.h"
 
 @interface DAO : NSObject
 
@@ -29,6 +30,11 @@
                         Name: (NSString*) productName
                          URL: (NSString*) URLName
                     andImage: (NSString*) imgName;
+
+-(void) editProduct: (Product*) currentProduct
+               Name: (NSString*) productName
+                URL: (NSString*) URLName
+           andImage: (NSString*) imgName;
 
 
 @end

@@ -183,6 +183,9 @@
     
     self.webViewController.urlString = selectedProduct.url;
     
+    self.webViewController.selectedProduct = selectedProduct;
+
+    self.webViewController.title = selectedProduct.name;
     
     
     // Push the view controller.

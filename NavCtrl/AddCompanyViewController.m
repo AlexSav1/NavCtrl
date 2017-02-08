@@ -36,10 +36,15 @@
 
 -(void) viewWillAppear:(BOOL)animated{
     
+    if([self.title  isEqual: @"Edit Company"]){
     self.companyNameTextField.text = self.selectedCompany.name;
     self.companyStockTextField.text = self.selectedCompany.stockTicker;
     self.companyPicTextField.text = self.selectedCompany.imageName;
-    
+    } else{
+        self.companyNameTextField.text = @"";
+        self.companyStockTextField.text = @"";
+        self.companyPicTextField.text = @"";
+    }
 }
 
 - (void)didReceiveMemoryWarning {
