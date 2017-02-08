@@ -14,6 +14,8 @@
 
 @property (strong, nonatomic) NSString *stockTicker;
 
+@property (strong, nonatomic) NSString *stockPrice;
+
 @property (strong, nonatomic) NSString *imageName;
 
 @property (strong, nonatomic) NSMutableArray *products;

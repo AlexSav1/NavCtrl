@@ -36,12 +36,6 @@
     
     self.dao = [DAO sharedDataManager];
     
-//    self.addCompanyViewController.dao = self.dao;
-//
-//    self.daoProductViewController.dao = self.dao;
-//    
-//    self.addProductVC.dao = self.dao;
-    
     
     if(self.dao.companies.count == 0){
         self.tableView.hidden = YES;
@@ -62,7 +56,69 @@
     self.navigationItem.leftBarButtonItem = editButton;
     
     self.tableView.allowsSelectionDuringEditing = YES;
+    
+   // NSLog(@"viewDidLoad getStockPrice");
+   // [self getStockPrice];
+    
 }
+
+-(void) getStockPrice{
+    
+    
+    NSMutableString *currentStocks = [[NSMutableString alloc]init];
+    
+    for (Company *currCompany in self.dao.companies) {
+        
+        [currentStocks appendString: currCompany.stockTicker];
+        
+        if(currCompany != [self.dao.companies lastObject]){
+            [currentStocks appendString:@"+"];
+        }
+    }
+    
+    NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
+    
+    NSString *urlString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=a", currentStocks];
+    
+    [request setURL:[NSURL URLWithString:urlString]];
+    
+    request.HTTPMethod = @"GET";
+    //request.HTTPBody = jsonData;
+    //[request addValue:@"application/json" forHTTPHeaderField:@"Content-Type"];
+    // [request addValue:@"application/json" forHTTPHeaderField:@"Accept"];
+    
+    
+    NSURLSession * session = [NSURLSession sessionWithConfiguration:[NSURLSessionConfiguration defaultSessionConfiguration]];
+    
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
+        
+        //parse
+        NSString *dataString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+        
+        //NSLog(@"%@", dataString);
+        
+        NSArray *components = [dataString componentsSeparatedByString:@"\n"];
+        
+        int i = 0;
+        
+        for (Company *currCompany in self.dao.companies) {
+                currCompany.stockPrice = components[i];
+                i ++;
+        }
+        dispatch_async(dispatch_get_main_queue(), ^{
+                [self.tableView reloadData];
+        });
+        NSLog(@"stockPrice updated");
+
+        
+          }];
+    [postDataTask resume];
+    NSLog(@"stockPrice requested");
+    
+}
+
+
+
 
 - (void)editPressed {
     if(![self.tableView isEditing]){
@@ -78,6 +134,9 @@
     
     [super viewWillAppear:animated];
     
+    NSLog(@"viewWillAppear getStockPrice");
+    [self getStockPrice];
+    
     if(self.dao.companies.count == 0){
         self.tableView.hidden = YES;
         self.noCompaniesView.hidden = NO;
@@ -89,6 +148,7 @@
 
     
     [self.tableView reloadData];
+    NSLog(@"self.tableView reloadData");
 }
 
 
@@ -136,13 +196,15 @@
     static NSString *CellIdentifier = @"Cell";
     UITableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:CellIdentifier];
     if (cell == nil) {
-        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleDefault reuseIdentifier:CellIdentifier];
+        cell = [[UITableViewCell alloc] initWithStyle:UITableViewCellStyleSubtitle reuseIdentifier:CellIdentifier];
     }
     
     // Configure the cell...
     Company *company = [self.dao.companies objectAtIndex:[indexPath row]];
     
     cell.textLabel.text = company.name; //[self.companyList objectAtIndex:[indexPath row]];
+    
+    cell.detailTextLabel.text = company.stockPrice;
     
     cell.imageView.image = [UIImage imageNamed:company.imageName];
     
@@ -156,7 +218,7 @@
  - (BOOL)tableView:(UITableView *)tableView canEditRowAtIndexPath:(NSIndexPath *)indexPath
  {
  // Return NO if you do not want the specified item to be editable.
-     NSLog(@"%li",(long)indexPath.row);
+     //NSLog(@"%li",(long)indexPath.row);
  return YES;
  }
 

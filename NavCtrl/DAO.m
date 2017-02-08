@@ -26,8 +26,8 @@
     if (self = [super init]) {
         
         Company *apple = [[Company alloc] initWithName:@"Apple" Ticker:@"AAPL" andImage:@"Apple-Logo"];
-        Company *samsung = [[Company alloc] initWithName:@"Samsung" Ticker:@"SSNLF" andImage:@"samsung-logo.jpg"];
-        Company *lg = [[Company alloc] initWithName:@"LG" Ticker:@"LPL" andImage:@"LG-Logo"];
+        Company *samsung = [[Company alloc] initWithName:@"Samsung" Ticker:@"SSU.DE" andImage:@"samsung-logo.jpg"];
+        Company *lg = [[Company alloc] initWithName:@"LG" Ticker:@"LGLG.F" andImage:@"LG-Logo"];
         Company *google = [[Company alloc] initWithName:@"Google" Ticker:@"GOOG" andImage:@"Google-Logo"];
         
         
