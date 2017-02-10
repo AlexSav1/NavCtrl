@@ -202,7 +202,7 @@
     // Configure the cell...
     Company *company = [self.dao.companies objectAtIndex:[indexPath row]];
     
-    cell.textLabel.text = company.name; //[self.companyList objectAtIndex:[indexPath row]];
+    cell.textLabel.text = [NSString stringWithFormat:@"%@(%@)", company.name, company.stockTicker]; //[self.companyList objectAtIndex:[indexPath row]];
     
     cell.detailTextLabel.text = company.stockPrice;
     
