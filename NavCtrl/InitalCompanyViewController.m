@@ -79,7 +79,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     NSString *urlString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=a", currentStocks];
-    
+    NSLog(@"%@", urlString);
     [request setURL:[NSURL URLWithString:urlString]];
     
     request.HTTPMethod = @"GET";
