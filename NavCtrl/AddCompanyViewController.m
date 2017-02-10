@@ -68,7 +68,7 @@
     
     [UIView animateWithDuration:0.3 animations:^{
         CGRect f = self.view.frame;
-        f.origin.y = -keyboardSize.height;
+        f.origin.y = -keyboardSize.height/2;
         self.view.frame = f;
     }];
 }
