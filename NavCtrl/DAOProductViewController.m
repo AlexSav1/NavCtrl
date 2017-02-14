@@ -127,7 +127,10 @@
         
         //remove from array
         
-        [self.currentCompany.products removeObjectAtIndex:indexPath.row];
+        Product *currProd = [self.currentCompany.products objectAtIndex:indexPath.row];
+        
+        [self.dao removeProduct:currProd forCompany:self.currentCompany];
+        
         
         
         // Delete the row from the data source
@@ -184,6 +187,8 @@
     self.webViewController.urlString = selectedProduct.url;
     
     self.webViewController.selectedProduct = selectedProduct;
+    
+    self.webViewController.currentCompany = self.currentCompany;
 
     self.webViewController.title = selectedProduct.name;
     

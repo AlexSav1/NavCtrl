@@ -45,6 +45,10 @@
     
 }
 
+-(void)viewWillAppear:(BOOL)animated {
+    self.title = self.selectedProduct.name;
+}
+
 - (void)didReceiveMemoryWarning {
     [super didReceiveMemoryWarning];
     // Dispose of any resources that can be recreated.
@@ -52,9 +56,12 @@
 
 -(void) editPressed{
     
+
     self.addProductVC.title = @"Edit Product";
     
     self.addProductVC.selectedProduct = self.selectedProduct;
+    
+    self.addProductVC.currentCompany = self.currentCompany;
     
     [self.navigationController
      pushViewController:self.addProductVC

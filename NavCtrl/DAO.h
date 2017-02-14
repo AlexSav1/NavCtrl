@@ -8,13 +8,24 @@
 
 #import "Company.h"
 #import <Foundation/Foundation.h>
+#import <CoreData/CoreData.h>
 #import "Product.h"
+#import "ManagedCompany+CoreDataClass.h"
+#import "ManagedProduct+CoreDataClass.h"
+#import "ManagedCompany+CoreDataProperties.h"
+#import "ManagedProduct+CoreDataProperties.h"
 
 @interface DAO : NSObject
 
 @property (strong, nonatomic) NSMutableArray<Company*>* companies;
+@property (strong, nonatomic) NSMutableArray *managedCompanies;
+
+@property (strong) NSManagedObjectContext *managedObjectContext;
 
 + (id)sharedDataManager;
+-(void)saveContext;
+
+- (void)initializeCoreData;
 
 -(void) addCompanyName: (NSString*) companyName
                 Ticker: (NSString*) stockName
@@ -34,7 +45,14 @@
 -(void) editProduct: (Product*) currentProduct
                Name: (NSString*) productName
                 URL: (NSString*) URLName
-           andImage: (NSString*) imgName;
+           andImage: (NSString*) imgName
+         forCompany: (Company*) currentCompany;
+
+
+-(void) removeCompany: (Company*) selectedCompany;
+
+-(void) removeProduct: (Product*) selectedProduct
+           forCompany: (Company*) currentCompany;
 
 
 @end

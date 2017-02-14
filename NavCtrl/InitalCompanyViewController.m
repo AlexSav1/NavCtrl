@@ -25,6 +25,8 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     
+    
+       
     self.addCompanyViewController = [[AddCompanyViewController alloc] initWithNibName:@"AddCompanyViewController" bundle:nil];
     
     [self.addCompanyViewController view];
@@ -232,7 +234,9 @@
         
         //remove from array
         
-        [self.dao.companies removeObjectAtIndex:indexPath.row];
+        Company *currComp = [self.dao.companies objectAtIndex:indexPath.row];
+        
+        [self.dao removeCompany:currComp];
         
         
         // Delete the row from the data source

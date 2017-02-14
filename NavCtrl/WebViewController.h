@@ -9,6 +9,7 @@
 #import <UIKit/UIKit.h>
 #import <WebKit/WebKit.h>
 #import "Product.h"
+#import "Company.h"
 
 @class addProductViewController;
 
@@ -19,5 +20,7 @@
 @property (nonatomic, retain) addProductViewController *addProductVC;
 
 @property (nonatomic, retain) Product *selectedProduct;
+
+@property (nonatomic, retain) Company *currentCompany;
 
 @end
