@@ -153,7 +153,7 @@
     
     
     
-    [self saveContext];
+    //[self saveContext];
 
     
 }
@@ -174,6 +174,8 @@
     
     NSPersistentStoreCoordinator *psc = [[NSPersistentStoreCoordinator alloc] initWithManagedObjectModel:mom];
     NSManagedObjectContext *moc = [[NSManagedObjectContext alloc] initWithConcurrencyType:NSMainQueueConcurrencyType];
+    
+    moc.undoManager = [[NSUndoManager alloc]init];
     [moc setPersistentStoreCoordinator:psc];
     
     [self setManagedObjectContext:moc];
@@ -206,7 +208,7 @@
 
     [self.managedCompanies addObject:mC];
     
-    [self saveContext];
+    //[self saveContext];
     
 }
 
@@ -228,7 +230,7 @@
     mC.stockTicker = selectedCompany.stockTicker;
     mC.imageName = selectedCompany.imageName;
     
-    [self saveContext];
+    //[self saveContext];
 }
 
 
@@ -256,7 +258,7 @@
     
     [mC.products setByAddingObject:mP];
 
-    [self saveContext];
+    //[self saveContext];
 }
 
 -(void) editProduct: (Product*) currentProduct
@@ -288,7 +290,7 @@
     currentProduct.imageName = imgName;
 
     
-    [self saveContext];
+    //[self saveContext];
 }
 
 -(void) removeCompany: (Company*) selectedCompany{
@@ -300,7 +302,7 @@
     
     [self.companies removeObject:selectedCompany];
     
-    [self saveContext];
+    //[self saveContext];
     
     
 
@@ -325,9 +327,25 @@
     
     [mC removeProductsObject:currManProd];
 
-   [self saveContext];
+   //[self saveContext];
    
     
+}
+
+-(void) undoManager{
+    
+    [self.managedObjectContext.undoManager undo];
+    
+    [self fetchFromCoreData];
+    
+}
+
+-(void) redoManager{
+    
+    [self.managedObjectContext.undoManager redo];
+    
+    [self fetchFromCoreData];
+
 }
 
 @end

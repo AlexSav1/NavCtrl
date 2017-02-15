@@ -54,5 +54,9 @@
 -(void) removeProduct: (Product*) selectedProduct
            forCompany: (Company*) currentCompany;
 
+-(void) undoManager;
+
+-(void) redoManager;
+
 
 @end

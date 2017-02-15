@@ -25,6 +25,8 @@
 
 @property (nonatomic, retain) NSMutableArray *imageList;
 
+@property (retain, nonatomic) IBOutlet UIToolbar *toolBar;
+
 @property (nonatomic, retain)  AddCompanyViewController *addCompanyViewController;
 
 @property (nonatomic, retain)  DAOProductViewController *daoProductViewController;

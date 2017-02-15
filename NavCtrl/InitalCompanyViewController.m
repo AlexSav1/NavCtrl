@@ -35,6 +35,11 @@
 
     
     self.title = @"Companies";
+    [self.navigationController.navigationBar setBackgroundColor:[UIColor redColor]];
+    //[self.navigationController.navigationBar setTintColor:[UIColor redColor]];
+    
+    //self.navigationController.navigationBar.translucent = NO;
+    
     
     self.dao = [DAO sharedDataManager];
     
@@ -50,6 +55,21 @@
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCompanyPressed)];
     
     self.navigationItem.rightBarButtonItem = addButton;
+    
+    
+    UIBarButtonItem *undoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemUndo target:self action:@selector(undoPressed)];
+    
+    UIBarButtonItem *fixedSpace =
+    [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemFixedSpace
+                                                  target:nil
+                                                  action:nil];
+    fixedSpace.width = 250;
+    
+    UIBarButtonItem *redoButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemRedo target:self action:@selector(redoPressed)];
+    
+    NSArray *buttons = [NSArray arrayWithObjects: undoButton, fixedSpace, redoButton, nil];
+    
+    [self.toolBar setItems: buttons animated:YES];
     
 //    self.navigationItem.leftBarButtonItem = self.editButtonItem;
 
@@ -125,12 +145,25 @@
 - (void)editPressed {
     if(![self.tableView isEditing]){
         [self.tableView setEditing:YES animated:YES];
+        self.toolBar.hidden = NO;
         self.navigationItem.leftBarButtonItem.title = @"Done";
     } else {
         [self.tableView setEditing:NO animated:YES];
+        self.toolBar.hidden = YES;
         self.navigationItem.leftBarButtonItem.title = @"Edit";
     }
 }
+
+-(void) undoPressed{
+    [self.dao undoManager];
+    [self.tableView reloadData];
+}
+
+-(void) redoPressed{
+    [self.dao redoManager];
+    [self.tableView reloadData];
+}
+
 
 - (void)viewWillAppear:(BOOL)animated {
     
@@ -348,6 +381,7 @@
 - (void)dealloc {
     [_tableView release];
     [_noCompaniesView release];
+    [_toolBar release];
     [super dealloc];
 }
 @end
