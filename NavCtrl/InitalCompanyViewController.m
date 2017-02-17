@@ -101,7 +101,7 @@
     NSMutableURLRequest *request = [[NSMutableURLRequest alloc] init];
     
     NSString *urlString = [NSString stringWithFormat:@"http://finance.yahoo.com/d/quotes.csv?s=%@&f=a", currentStocks];
-    NSLog(@"%@", urlString);
+    //NSLog(@"%@", urlString);
     [request setURL:[NSURL URLWithString:urlString]];
     
     request.HTTPMethod = @"GET";
@@ -122,7 +122,7 @@
         NSArray *components = [dataString componentsSeparatedByString:@"\n"];
         
         int i = 0;
-        
+        NSLog(@"Before dispatch");
         for (Company *currCompany in self.dao.companies) {
                 currCompany.stockPrice = components[i];
                 i ++;

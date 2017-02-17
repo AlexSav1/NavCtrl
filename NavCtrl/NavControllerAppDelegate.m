@@ -49,8 +49,8 @@
     // Use this method to pause ongoing tasks, disable timers, and throttle down OpenGL ES frame rates. Games should use this method to pause the game.
     
     
-//    DAO *dataMANAGER = [DAO sharedDataManager];
-//    [dataMANAGER saveContext];
+    DAO *dataMANAGER = [DAO sharedDataManager];
+    [dataMANAGER saveContext];
 }
 
 - (void)applicationDidEnterBackground:(UIApplication *)application
