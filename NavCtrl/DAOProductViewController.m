@@ -200,6 +200,9 @@
 
 
 - (void)dealloc {
+    
+    [_currentCompany release];
+    [_addProductVC release];
     [_webViewController release];
     [_tableView release];
     [_noProductsView release];

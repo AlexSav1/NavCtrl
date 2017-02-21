@@ -131,6 +131,9 @@
 */
 
 - (void)dealloc {
+    
+    [_selectedCompany release];
+    
     [_companyNameTextField release];
     [_companyStockTextField release];
     [_companyPicTextField release];

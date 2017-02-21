@@ -33,7 +33,7 @@
                                 <constraint firstAttribute="width" secondItem="sec-e6-iMi" secondAttribute="height" multiplier="43:7" id="a9q-Wh-b0t"/>
                             </constraints>
                             <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                            <nil key="textColor"/>
+                            <color key="textColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                             <nil key="highlightedColor"/>
                         </label>
                         <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="Uaq-rt-dOu">
@@ -43,7 +43,7 @@
                             </constraints>
                         </imageView>
                     </subviews>
-                    <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="calibratedWhite"/>
+                    <color key="backgroundColor" white="0.33333333333333331" alpha="1" colorSpace="calibratedWhite"/>
                     <constraints>
                         <constraint firstItem="sec-e6-iMi" firstAttribute="top" secondItem="Uaq-rt-dOu" secondAttribute="bottom" constant="8" id="FUI-VO-Skt"/>
                         <constraint firstItem="Uaq-rt-dOu" firstAttribute="top" secondItem="h9w-XB-Px5" secondAttribute="top" constant="63" id="H2b-Rm-fkq"/>

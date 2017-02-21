@@ -28,9 +28,12 @@
     UIBarButtonItem *saveButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemSave target:self action:@selector(savePressed)];
     
     self.navigationItem.rightBarButtonItem = saveButton;
+    [saveButton release];
 }
 
 -(void) viewWillAppear:(BOOL)animated{
+    
+    [super viewWillAppear:animated];
     
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillShow:) name:UIKeyboardWillShowNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(keyboardWillHide:) name:UIKeyboardWillHideNotification object:nil];
@@ -115,8 +118,13 @@
     // Pass the selected object to the new view controller.
 }
 */
-
 - (void)dealloc {
+    
+    [_daoProductViewController release];
+    //[_dao release];
+    [_currentCompany release];
+    [_selectedProduct release];
+    
     [_productNameTextField release];
     [_productURLTextField release];
     [_productImageURLTextField release];

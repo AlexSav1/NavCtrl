@@ -129,7 +129,12 @@
     
     //using these companies.. make managed companies
     
-    self.managedCompanies = [[NSMutableArray alloc] init];
+   // NSMutableArray *marray = [[NSMutableArray alloc] init];
+   // self.managedCompanies = marray;
+    //[marray release];
+    //[self setManagedCompanies:( [[NSMutableArray alloc] init] )];
+    
+    _managedCompanies =  [[NSMutableArray alloc] init];
     
     
     for (Company *currComp in self.companies) {
@@ -155,6 +160,26 @@
     
     [self saveContext];
 
+    [apple release];
+    [samsung release];
+    [lg release];
+    [google release];
+    
+    [ipad release];
+    [ipodTouch release];
+    [iphone release];
+    
+    [s4 release];
+    [note release];
+    [tab release];
+    
+    [v20 release];
+    [g5 release];
+    [stylo2 release];
+    
+    [pixel release];
+    [nexus release];
+    [pixelC release];
     
 }
 
@@ -208,6 +233,7 @@
 
     [self.managedCompanies addObject:mC];
     
+    [newCompany release];
     //[self saveContext];
     
 }
@@ -258,6 +284,7 @@
     
     [mC.products setByAddingObject:mP];
 
+    [newProduct release];
     //[self saveContext];
 }
 
@@ -302,6 +329,8 @@
     
     [self.companies removeObject:selectedCompany];
     
+    //[selectedCompany release];
+    
     //[self saveContext];
     
     
@@ -327,6 +356,8 @@
     
     [mC removeProductsObject:currManProd];
 
+    [selectedProduct release];
+    
    //[self saveContext];
    
     

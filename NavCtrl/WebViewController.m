@@ -23,17 +23,17 @@
     
     WKWebViewConfiguration *theConfiguration = [[WKWebViewConfiguration alloc] init];
     
-    WKWebView *webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:theConfiguration];
+    self.webView = [[WKWebView alloc] initWithFrame:self.view.frame configuration:theConfiguration];
     
-    
-    webView.navigationDelegate = self;
+    [theConfiguration release];
+    self.webView.navigationDelegate = self;
     
     NSURL *url = [NSURL URLWithString:self.urlString];
     
     NSURLRequest *request = [NSURLRequest requestWithURL:url];
     
-    [webView loadRequest:request];
-    [self.view addSubview:webView];
+    [self.webView loadRequest:request];
+    [self.view addSubview:self.webView];
     
     
     UIBarButtonItem *editButton = [[UIBarButtonItem alloc] initWithTitle:@"Edit" style:UIBarButtonItemStylePlain target:self action:@selector(editPressed)];
@@ -46,6 +46,9 @@
 }
 
 -(void)viewWillAppear:(BOOL)animated {
+    
+    [super viewWillAppear:animated];
+    
     self.title = self.selectedProduct.name;
 }
 
@@ -78,5 +81,15 @@
     // Pass the selected object to the new view controller.
 }
 */
+
+-(void) dealloc{
+    
+    [_selectedProduct release];
+    [_currentCompany release];
+    [_webView release];
+    [_addProductVC release];
+    [_urlString release];
+    [super dealloc];
+}
 
 @end

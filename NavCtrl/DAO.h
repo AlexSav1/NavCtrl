@@ -17,8 +17,8 @@
 
 @interface DAO : NSObject
 
-@property (strong, nonatomic) NSMutableArray<Company*>* companies;
-@property (strong, nonatomic) NSMutableArray *managedCompanies;
+@property (retain, nonatomic) NSMutableArray<Company*>* companies;
+@property (retain, nonatomic) NSMutableArray *managedCompanies;
 
 @property (strong) NSManagedObjectContext *managedObjectContext;
 

@@ -24,5 +24,12 @@
     
 }
 
+-(void) dealloc{
+    
+    [_name release];
+    [_imageName release];
+    [_url release];
+    [super dealloc];
+}
 
 @end

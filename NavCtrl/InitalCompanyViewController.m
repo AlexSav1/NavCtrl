@@ -34,12 +34,19 @@
     self.daoProductViewController = [[DAOProductViewController alloc] initWithNibName:@"DAOProductViewController" bundle:nil];
 
     
-    self.title = @"Companies";
-    [self.navigationController.navigationBar setBackgroundColor:[UIColor redColor]];
+    
+
+    
+    //[self.navigationController.navigationBar setBackgroundColor:[UIColor colorWithRed:(.498) green:(.706) blue:(.2235) alpha:1]];
+    [self.navigationController.navigationBar setBarTintColor:[UIColor colorWithRed:(.498) green:(.706) blue:(.2235) alpha:1]];
+    [self.navigationController.navigationBar setTintColor:[UIColor whiteColor]];
+    [self.navigationController.navigationBar setTitleTextAttributes:
+     @{NSForegroundColorAttributeName:[UIColor whiteColor]}];
     //[self.navigationController.navigationBar setTintColor:[UIColor redColor]];
     
     //self.navigationController.navigationBar.translucent = NO;
     
+    self.navigationItem.title = @"Companies";
     
     self.dao = [DAO sharedDataManager];
     
@@ -53,6 +60,8 @@
     }
     
     UIBarButtonItem *addButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd target:self action:@selector(addCompanyPressed)];
+    
+   
     
     self.navigationItem.rightBarButtonItem = addButton;
     
@@ -79,9 +88,16 @@
     
     self.tableView.allowsSelectionDuringEditing = YES;
     
+    self.noConnection = TRUE;
+    
+    [NSTimer scheduledTimerWithTimeInterval:60.0 target:self selector:@selector(getStockPrice) userInfo:nil repeats:YES];
+
+    
    // NSLog(@"viewDidLoad getStockPrice");
    // [self getStockPrice];
-    
+    [fixedSpace release];
+    [undoButton release];
+    [addButton release];
 }
 
 -(void) getStockPrice{
@@ -114,31 +130,85 @@
     
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error){
         
-        //parse
-        NSString *dataString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
         
-        //NSLog(@"%@", dataString);
+        NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse *) response;
         
-        NSArray *components = [dataString componentsSeparatedByString:@"\n"];
         
-        int i = 0;
-        NSLog(@"Before dispatch");
-        for (Company *currCompany in self.dao.companies) {
+        if(httpResponse.statusCode == 200){
+            
+            //parse
+            NSString *dataString = [[NSString alloc]initWithData:data encoding:NSUTF8StringEncoding];
+            
+            //NSLog(@"%@", dataString);
+            
+            NSArray *components = [dataString componentsSeparatedByString:@"\n"];
+            
+            int i = 0;
+            NSLog(@"Before dispatch");
+            for (Company *currCompany in self.dao.companies) {
                 currCompany.stockPrice = components[i];
                 i ++;
-        }
-        dispatch_async(dispatch_get_main_queue(), ^{
+            }
+            [dataString release];
+            [session release];
+            
+            dispatch_async(dispatch_get_main_queue(), ^{
                 [self.tableView reloadData];
-        });
-        NSLog(@"stockPrice updated");
+            });
+            NSLog(@"stockPrice updated");
 
-        
-          }];
+            
+            
+        }
+        else{
+            dispatch_async(dispatch_get_main_queue(), ^{
+                
+                //self.outPutTextField.text = @"Failure";
+                NSLog(@"Failure");
+                if(self.noConnection == TRUE){
+                    [self showOfflineAlert];
+                    self.noConnection = FALSE;
+                }
+                
+                
+            });
+            
+        }
+
+    }];
     [postDataTask resume];
     NSLog(@"stockPrice requested");
     
+    
+    //releasing
+    [currentStocks release];
+    [request release];
+    
+//    [urlString release];
+//    [session release];
+    
+    
 }
 
+- (void)showOfflineAlert {
+    
+    UIAlertController * alert=   [UIAlertController
+                                  alertControllerWithTitle:@"Info"
+                                  message:@"You are offline"
+                                  preferredStyle:UIAlertControllerStyleAlert];
+    
+    UIAlertAction* ok = [UIAlertAction
+                         actionWithTitle:@"OK"
+                         style:UIAlertActionStyleDefault
+                         handler:^(UIAlertAction * action)
+                         {
+                             [alert dismissViewControllerAnimated:YES completion:nil];
+                         }];
+    
+    [alert addAction:ok];
+    
+    [self presentViewController:alert animated:YES completion:nil];
+}
 
 
 
@@ -288,6 +358,7 @@
 
         
         // Request table view to reload
+        //[currComp release];
         [tableView reloadData];
     }
     else if (editingStyle == UITableViewCellEditingStyleInsert) {
@@ -382,6 +453,12 @@
     [_tableView release];
     [_noCompaniesView release];
     [_toolBar release];
+    
+    //VC's
+    [_daoProductViewController release];
+    [_addCompanyViewController release];
+    [_addProductVC release];
+    [_dao release];
     [super dealloc];
 }
 @end

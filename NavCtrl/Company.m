@@ -25,4 +25,15 @@
    
 }
 
+-(void) dealloc{
+    
+    [_name release];
+    [_stockTicker release];
+    [_stockPrice release];
+    [_imageName release];
+    [_products release];
+    
+    [super dealloc];
+}
+
 @end

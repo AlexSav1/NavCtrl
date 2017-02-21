@@ -22,5 +22,6 @@
 @property (nonatomic, retain) Product *selectedProduct;
 
 @property (nonatomic, retain) Company *currentCompany;
+@property (nonatomic, retain) WKWebView *webView;
 
 @end
