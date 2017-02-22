@@ -52,6 +52,16 @@
     
     self.companyImageView.image = [UIImage imageNamed:self.currentCompany.imageName];
     
+    if(self.currentCompany.products.count == 0){
+        self.tableView.hidden = YES;
+        self.noProductsView.hidden = NO;
+    }
+    else{
+        self.tableView.hidden = NO;
+        self.noProductsView.hidden = YES;
+    }
+
+    
     [self.tableView reloadData];
 }
 
